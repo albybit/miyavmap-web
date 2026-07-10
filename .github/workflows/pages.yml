@@ -1,6 +1,9 @@
-# Deploys the static site to GitHub Pages on every push to main.
-# Same pattern as the app repo's legal site/ workflow — no build step, the repo IS the site.
-name: Deploy to GitHub Pages
+# Publishes the site: every push to main fast-syncs the gh-pages branch,
+# which GitHub Pages serves (Settings → Pages → deploy from branch gh-pages).
+# Pages was auto-enabled by the first gh-pages push — no Settings click needed.
+# (The actions/deploy-pages flow needs Pages source = "GitHub Actions", which
+# only a repo admin can set; this branch-sync pattern needs no admin at all.)
+name: Publish to GitHub Pages
 
 on:
   push:
@@ -8,27 +11,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true   # first run enables Pages itself — no Settings click needed
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - run: git push --force origin HEAD:gh-pages
