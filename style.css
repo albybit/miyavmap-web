@@ -1,0 +1,154 @@
+/* MiyavMap Web v0 — presentation page layout (LANDING_SPEC.md)
+   Depends on css/tokens.css + css/components.css. */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { display: flex; flex-direction: column; min-height: 100vh; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--primary); color: var(--on-primary);
+  padding: 10px 18px; border-radius: 0 0 12px 0; font: var(--type-label);
+}
+.skip-link:focus-visible { left: 0; }
+
+.icon { display: block; }
+
+/* ── header ───────────────────────────────────────────── */
+.site-header {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; padding: 0 clamp(16px, 4vw, 40px);
+  background: var(--surface-container);
+  position: sticky; top: 0; z-index: 20;
+}
+/* theme toggle shows the icon of the theme you'd switch TO */
+.icon-theme__sun { display: none; }
+[data-theme="dark"] .icon-theme__moon { display: none; }
+[data-theme="dark"] .icon-theme__sun { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .icon-theme__moon { display: none; }
+  :root:not([data-theme]) .icon-theme__sun { display: block; }
+}
+
+/* ── shared section shell ─────────────────────────────── */
+main > section { padding: clamp(48px, 8vw, 88px) clamp(16px, 4vw, 40px); }
+main > section > h2 { text-align: center; }
+.how__grid, .cards-band__grid, .hero__inner { max-width: 1080px; margin: 0 auto; }
+
+/* ── hero ─────────────────────────────────────────────── */
+.hero {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(24px, 6vw, 72px); flex-wrap: wrap;
+  text-align: left;
+}
+.hero__wordmark { font: 600 clamp(44px, 8vw, 64px)/1.05 var(--font-display); color: var(--primary); }
+.hero__wordmark span { color: var(--on-surface); }
+.hero__text { max-width: 460px; }
+.hero__text .tagline { margin: 6px 0 0; }
+.hero__oneliner { font: var(--type-body); font-size: 16px; line-height: 24px; margin: 20px 0 0; }
+.hero__cta { margin-top: 28px; }
+.hero__cta-note { font: var(--type-label); color: var(--on-surface-variant); margin: 10px 0 0; }
+.hero__mascot { width: clamp(150px, 24vw, 220px); height: auto; }
+
+/* ── how it works ─────────────────────────────────────── */
+.how__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px; margin-top: 32px;
+}
+.how__card {
+  background: var(--surface-container); border-radius: var(--radius-card);
+  padding: 26px 24px;
+}
+.how__card h3 { font: var(--type-card-name); font-size: 20px; margin: 14px 0 8px; }
+.how__card p { margin: 0; color: var(--on-surface-variant); }
+.how__icon {
+  display: inline-flex; width: 48px; height: 48px; border-radius: 50%;
+  align-items: center; justify-content: center;
+  background: var(--primary-container); color: var(--on-primary-container);
+}
+.how__icon svg { width: 26px; height: 26px; }
+
+/* ── map band (full-bleed) ────────────────────────────── */
+.map-band { padding-left: 0 !important; padding-right: 0 !important; }
+.map-band > h2 { padding: 0 16px; }
+.map-teaser {
+  height: clamp(340px, 55vh, 520px); margin-top: 28px;
+  background: var(--surface-variant);
+  display: flex; align-items: center; justify-content: center;
+}
+.map-teaser__noscript { font: var(--type-body); color: var(--on-surface-variant); padding: 16px; }
+.map-band__caption {
+  text-align: center; font: var(--type-label); color: var(--on-surface-variant);
+  margin: 14px 16px 0;
+}
+
+/* warm tile treatment per theme (DESIGN_SPEC §6) — attribution pane unaffected */
+.map-teaser .leaflet-tile-pane { filter: sepia(.12) saturate(.9); }
+[data-theme="dark"] .map-teaser .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(.9) saturate(.7);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .map-teaser .leaflet-tile-pane {
+    filter: invert(1) hue-rotate(180deg) brightness(.9) saturate(.7);
+  }
+}
+.map-teaser .leaflet-control-attribution {
+  background: color-mix(in srgb, var(--surface-container) 92%, transparent);
+  color: var(--on-surface); font: 600 11px/1.6 var(--font-body); padding: 2px 8px;
+}
+.map-teaser .leaflet-control-attribution a { color: var(--primary); }
+.map-teaser .leaflet-control-zoom a {
+  background: color-mix(in srgb, var(--surface-container) 92%, transparent);
+  color: var(--on-surface); border-color: var(--outline-variant);
+}
+.map-teaser .leaflet-tooltip {
+  background: color-mix(in srgb, var(--surface-container) 96%, transparent);
+  color: var(--on-surface); border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-pill); padding: 4px 12px;
+  font: var(--type-label); box-shadow: var(--shadow-float);
+}
+.map-teaser .leaflet-tooltip-top:before { border-top-color: var(--outline-variant); }
+
+/* ── cards band ───────────────────────────────────────── */
+.cards-band__lede {
+  text-align: center; max-width: 520px; margin: 12px auto 0;
+  color: var(--on-surface-variant);
+}
+.cards-band__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: clamp(16px, 3vw, 28px); margin-top: 36px;
+  padding: 6px; /* finial overflow room (DESIGN_SPEC §5) */
+}
+.cards-band__note {
+  text-align: center; font: var(--type-label); color: var(--on-surface-variant);
+  margin: 22px 0 0;
+}
+.cat-card__sampleart { object-fit: contain !important; background: var(--card-nophoto); padding: 12%; }
+
+/* ── privacy strip ────────────────────────────────────── */
+.privacy { background: var(--surface-container); text-align: center; }
+.privacy__headline {
+  font: 600 clamp(22px, 4vw, 30px)/1.35 var(--font-display);
+  max-width: 760px; margin: 0 auto;
+}
+.privacy__sub { color: var(--on-surface-variant); margin: 14px 0 0; }
+
+/* ── footer ───────────────────────────────────────────── */
+.site-footer {
+  margin-top: auto; padding: 48px clamp(16px, 4vw, 40px) 40px;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  text-align: center; border-top: 1px solid var(--outline-variant);
+}
+.site-footer__mission { font: var(--type-body); max-width: 420px; margin: 0; }
+.site-footer__links { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: center; font: var(--type-label); }
+.site-footer__small { font: var(--type-label); font-weight: 600; color: var(--on-surface-variant); margin: 0; }
+
+/* ── small screens ────────────────────────────────────── */
+@media (max-width: 599px) {
+  .hero { flex-direction: column-reverse; text-align: center; }
+  .hero__text { display: flex; flex-direction: column; align-items: center; }
+  .cards-band__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1200px) {
+  body { font-size: 15px; } /* body copy scales one step (DESIGN_SPEC §2) */
+}

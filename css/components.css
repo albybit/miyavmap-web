@@ -1,0 +1,286 @@
+/* MiyavMap Web — components
+   Depends on tokens.css. Card frames are pixel-parity with the app (spec §5). */
+
+/* ── base ─────────────────────────────────────────────── */
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--on-surface);
+  font: var(--type-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--primary); }
+a:hover { color: var(--on-primary-container); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+h1, .type-display { font: var(--type-display); margin: 0; }
+h2, .type-title { font: var(--type-title); margin: 0; }
+.type-label { font: var(--type-label); }
+.type-badge { font: var(--type-badge); letter-spacing: 1px; text-transform: uppercase; }
+
+/* ── wordmark ─────────────────────────────────────────── */
+.wordmark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.wordmark img { width: 32px; height: 32px; }
+.wordmark b { font: 600 22px/1 var(--font-display); color: var(--primary); }
+.wordmark b span { color: var(--on-surface); }
+.tagline {
+  font: 800 10px/12px var(--font-body);
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--on-surface); opacity: .4;
+}
+
+/* ── floating map UI (one recipe) ─────────────────────── */
+.float-pill, .float-circle {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: color-mix(in srgb, var(--surface-container) 92%, transparent);
+  color: var(--on-surface);
+  box-shadow: var(--shadow-float);
+  border: none; font: var(--type-label); cursor: pointer;
+}
+.float-pill { height: 36px; padding: 0 16px; border-radius: var(--radius-pill); }
+.float-circle { width: 48px; height: 48px; border-radius: 50%; padding: 0; }
+
+/* ── chips / buttons / banner ─────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 32px; padding: 0 12px; border-radius: 8px;
+  background: var(--surface-variant); color: var(--on-surface-variant);
+  font: var(--type-label); border: none; cursor: pointer;
+}
+.chip[aria-pressed="true"], .chip.is-selected {
+  background: var(--secondary-container); color: var(--on-secondary-container);
+}
+.btn-filled {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 24px; border-radius: var(--radius-pill);
+  background: var(--primary); color: var(--on-primary);
+  font: 800 14px/1 var(--font-body); border: none; cursor: pointer;
+}
+.btn-outlined {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 20px; border-radius: var(--radius-pill);
+  background: transparent; color: var(--on-surface);
+  border: 1px solid var(--outline); font: var(--type-label); cursor: pointer;
+}
+.banner-attention {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--error-container); color: var(--on-error-container);
+  padding: 12px 16px; font: var(--type-body); font-weight: 600;
+}
+.chip-steward {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 32px; padding: 0 12px; border-radius: var(--radius-pill);
+  background: var(--secondary-container); color: var(--on-secondary-container);
+  font: var(--type-label);
+}
+
+/* ── the trading card ─────────────────────────────────── */
+/* Markup:
+   <article class="cat-card cat-card--rare">
+     <div class="cat-card__frame">
+       <div class="cat-card__photo"><img …></div>  (or .cat-card__nophoto)
+       <span class="cat-card__badge">◆ Rare</span>
+       <div class="cat-card__meta"><h3>Name</h3><p><span>City</span><span>Date</span></p></div>
+     </div>
+   </article>
+   Legendary needs the outer wrapper for finials/gradient — see .cat-card--legendary. */
+
+.cat-card { position: relative; container-type: inline-size; }
+.cat-card__frame {
+  aspect-ratio: 3 / 4;
+  background: var(--card-body);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  position: relative;
+  display: flex; flex-direction: column;
+}
+.cat-card__photo { height: 73%; position: relative; overflow: hidden; flex: none; }
+.cat-card__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cat-card__photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgb(0 0 0 / .55) 100%);
+}
+.cat-card__nophoto {
+  height: 73%; flex: none;
+  background: var(--card-nophoto)
+    repeating-linear-gradient(45deg, rgb(240 145 44 / .05) 0 10px, transparent 10px 20px);
+  display: flex; align-items: center; justify-content: center;
+}
+.cat-card__nophoto img { width: 34px; opacity: .28; filter: invert(.8); }
+.cat-card__badge {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 24px; padding: 0 10px; border-radius: var(--radius-pill);
+  font: var(--type-badge); letter-spacing: 1px; text-transform: uppercase;
+}
+.cat-card__meta { padding: 10px 14px 0; }
+.cat-card__meta h3 { font: var(--type-card-name); color: var(--card-on-body); margin: 0; }
+.cat-card__meta p {
+  display: flex; justify-content: space-between; gap: 8px; margin: 3px 0 0;
+  font: 600 12px/16px var(--font-body); color: var(--card-on-body-meta);
+}
+
+/* COMMON — plain rounded frame, theme-aware hairline */
+.cat-card--common .cat-card__frame { border: 1px solid var(--outline-variant); }
+.cat-card--common .cat-card__badge {
+  background: var(--rarity-common-container-oncard); color: #DCE3E9;
+}
+
+/* RARE — 2px blue border + 2 corner ticks (TL + BR) */
+.cat-card--rare .cat-card__frame { border: 2px solid #1565C0; }
+.cat-card--rare .cat-card__badge { background: #1565C0; color: #FFFFFF; }
+.cat-card--rare::before, .cat-card--rare::after {
+  content: ""; position: absolute; width: 16px; height: 16px; z-index: 3;
+  pointer-events: none;
+}
+.cat-card--rare::before {
+  top: 5px; left: 5px;
+  border-left: 2.5px solid var(--rarity-rare-oncard);
+  border-top: 2.5px solid var(--rarity-rare-oncard);
+  border-top-left-radius: 9px;
+}
+.cat-card--rare::after {
+  bottom: 5px; right: 5px;
+  border-right: 2.5px solid var(--rarity-rare-oncard);
+  border-bottom: 2.5px solid var(--rarity-rare-oncard);
+  border-bottom-right-radius: 9px;
+}
+
+/* EPIC — cut corners TL+BR; border drawn as a padded wrapper (border ignores clip-path) */
+.cat-card--epic .cat-card__wrap {
+  background: #6A1B9A; padding: 2px;
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+.cat-card--epic .cat-card__frame {
+  border-radius: 0;
+  clip-path: polygon(13px 0, 100% 0, 100% calc(100% - 13px), calc(100% - 13px) 100%, 0 100%, 0 13px);
+}
+.cat-card--epic .cat-card__frame::after { /* inner hairline */
+  content: ""; position: absolute; inset: 5px; z-index: 2; pointer-events: none;
+  border: 1px solid rgb(206 147 248 / .5);
+  clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px);
+}
+.cat-card--epic .cat-card__badge { background: #6A1B9A; color: #FFFFFF; }
+
+/* LEGENDARY — gradient border wrapper + inner hairline + finials + shimmer */
+.cat-card--legendary .cat-card__wrap {
+  background: var(--legendary-gradient);
+  padding: 3px; border-radius: var(--radius-card-legendary);
+}
+.cat-card--legendary .cat-card__frame { border-radius: 15px; }
+.cat-card--legendary .cat-card__frame::after { /* inner hairline */
+  content: ""; position: absolute; inset: 5px; z-index: 2; pointer-events: none;
+  border: 1px solid var(--legendary-inner); border-radius: 11px;
+}
+.cat-card--legendary .cat-card__badge {
+  background: linear-gradient(135deg, #FFB300, #E07A00); color: var(--on-gold);
+}
+.cat-card__finial {
+  position: absolute; z-index: 4; color: #FFD54F; font-size: 12px; line-height: 1;
+  text-shadow: 0 1px 3px rgb(0 0 0 / .4); pointer-events: none;
+}
+.cat-card__finial:nth-of-type(1) { top: -3px; left: -3px; }
+.cat-card__finial:nth-of-type(2) { top: -3px; right: -3px; }
+.cat-card__finial:nth-of-type(3) { bottom: -3px; left: -3px; }
+.cat-card__finial:nth-of-type(4) { bottom: -3px; right: -3px; }
+.cat-card--legendary .cat-card__photo::before {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 46%; z-index: 1;
+  background: linear-gradient(90deg, transparent, var(--shimmer), transparent);
+  transform: translateX(-130%) skewX(-18deg);
+  animation: mm-shimmer 5s ease-in-out infinite;
+}
+@keyframes mm-shimmer {
+  0%        { transform: translateX(-130%) skewX(-18deg); }
+  32%, 100% { transform: translateX(240%)  skewX(-18deg); }
+}
+
+/* compact (< 140px container): glyph-only badge, 13px name, no meta row */
+@container (max-width: 140px) {
+  .cat-card__badge { width: 18px; height: 18px; padding: 0; justify-content: center; font-size: 10px; }
+  .cat-card__badge .cat-card__badge-label { display: none; }
+  .cat-card__meta h3 { font-size: 13px; line-height: 18px; }
+  .cat-card__meta p { display: none; }
+}
+
+/* loading skeleton = the card back */
+.cat-card--loading .cat-card__frame {
+  background: var(--card-back);
+  align-items: center; justify-content: center; gap: 12px;
+  animation: mm-pulse 2s ease-in-out infinite;
+}
+.cat-card--loading .cat-card__frame::before {
+  content: ""; position: absolute; inset: 10px; border-radius: 11px;
+  border: 1px solid var(--card-back-border);
+}
+.cat-card--loading .cat-card__frame::after {
+  content: ""; position: absolute; inset: 0; opacity: .07;
+  background-image: radial-gradient(circle at 8px 8px, #F0912C 3.5px, transparent 4px);
+  background-size: 44px 44px; transform: rotate(-18deg) scale(1.4);
+}
+.cat-card__backlogo { width: 40%; max-width: 84px; position: relative; z-index: 1;
+  filter: invert(62%) sepia(64%) saturate(1600%) hue-rotate(348deg) brightness(101%) contrast(89%); }
+.cat-card__backname { position: relative; z-index: 1; font: 600 20px/1 var(--font-display); color: var(--card-on-body); }
+.cat-card__backname span { color: #F0912C; }
+@keyframes mm-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .72; } }
+
+/* hover (desktop) */
+@media (hover: hover) {
+  .cat-card { transition: transform .15s ease-out, filter .15s ease-out; }
+  .cat-card:hover { transform: translateY(-2px); filter: drop-shadow(var(--shadow-card-hover)); }
+}
+
+/* ── map pins ─────────────────────────────────────────── */
+/* Circular identity-photo pin (divIcon, anchor: center) */
+.pin-photo {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #FFFFFF; /* halo */
+  padding: 3px; box-sizing: border-box;
+  filter: drop-shadow(0 1.5px 1px rgb(0 0 0 / .25));
+  transition: transform .15s ease-out;
+}
+.pin-photo__ring {
+  width: 100%; height: 100%; border-radius: 50%;
+  padding: 2.5px; box-sizing: border-box;
+}
+.pin-photo--common    .pin-photo__ring { background: var(--rarity-common-oncard); }
+.pin-photo--rare      .pin-photo__ring { background: var(--rarity-rare-oncard); }
+.pin-photo--epic      .pin-photo__ring { background: var(--rarity-epic-oncard); }
+.pin-photo--legendary .pin-photo__ring { background: var(--legendary-gradient); }
+.pin-photo__ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+.pin-photo.is-selected { transform: scale(1.18); }
+.pin-photo.is-selected { background: var(--primary-container); }
+
+/* Classic pointed pin (SVG assets, anchor: tip) */
+.pin-classic { width: 32px; filter: drop-shadow(0 1.5px 1px rgb(0 0 0 / .25));
+  transition: transform .15s ease-out; transform-origin: 50% 100%; }
+.pin-classic.is-selected { transform: scale(1.25); }
+
+/* shared-cat ×N badge — top-right of either pin style */
+.pin-badge {
+  position: absolute; top: -5px; right: -7px;
+  min-width: 17px; height: 17px; padding: 0 3px; box-sizing: border-box;
+  border-radius: var(--radius-pill); background: #FFFFFF;
+  border: 1.5px solid currentColor;
+  font: var(--type-badge); display: flex; align-items: center; justify-content: center;
+}
+.pin-badge--common    { color: #667077; }
+.pin-badge--rare      { color: #1565C0; }
+.pin-badge--epic      { color: #6A1B9A; }
+.pin-badge--legendary { color: #A65E00; }
+
+/* cluster bubble — floating-UI recipe, not Leaflet defaults */
+.pin-cluster {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: color-mix(in srgb, var(--surface-container) 92%, transparent);
+  color: var(--on-surface); font: var(--type-label);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-float);
+}
+
+/* ── reduced motion (non-negotiable) ──────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .cat-card--legendary .cat-card__photo::before { animation: none; display: none; }
+  .cat-card--loading .cat-card__frame { animation: none; }
+  .cat-card, .pin-photo, .pin-classic { transition: none; }
+  .cat-card:hover { transform: none; }
+}

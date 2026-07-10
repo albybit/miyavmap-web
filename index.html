@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MiyavMap — Street Cat Society</title>
+<meta name="description" content="Photograph the street cats around you, collect them as trading cards, and help your neighborhood keep track of the real cats behind them. No ads, no tracking, locations blurred.">
+
+<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="theme-color" content="#FFF8F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17120D" media="(prefers-color-scheme: dark)">
+
+<meta property="og:title" content="MiyavMap — Street Cat Society">
+<meta property="og:description" content="Street cats become community-maintained identity pages. The card game is how the register gets built.">
+<meta property="og:type" content="website">
+<!-- TODO: confirm the final origin (github.io repo path or custom domain) before launch -->
+<meta property="og:image" content="https://albybit.github.io/miyavmap-web/assets/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="style.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <a class="wordmark" href="#">
+    <img src="assets/logo-mark.svg" alt="" width="32" height="32">
+    <b>Miyav<span>Map</span></b>
+  </a>
+  <button class="float-circle" id="themeToggle" aria-label="Toggle light or dark theme">
+    <svg class="icon icon-theme" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+      <path class="icon-theme__moon" d="M14.5 3.5A8.6 8.6 0 0 0 12 3a9 9 0 1 0 9 9c0-.86-.12-1.7-.35-2.5A6.75 6.75 0 0 1 14.5 3.5Z"/>
+      <g class="icon-theme__sun"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.2v2.6M12 19.2v2.6M2.2 12h2.6M19.2 12h2.6M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></g>
+    </svg>
+  </button>
+</header>
+
+<main id="main">
+
+  <!-- ═══ 1 · HERO ═══════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__text">
+      <h1 class="hero__wordmark">Miyav<span>Map</span></h1>
+      <p class="tagline">Street cat society</p>
+      <p class="hero__oneliner">Photograph the street cats around you, collect them as
+        trading cards, and help your neighborhood keep track of the real cats behind them.</p>
+
+      <!-- CTA — pre-launch variant live; swap to the Play badge at launch (LANDING_SPEC §2) -->
+      <div class="hero__cta">
+        <a class="btn-filled" href="mailto:albybit31@gmail.com?subject=MiyavMap%20early%20access">Get early access</a>
+        <p class="hero__cta-note">Coming soon to Google Play.</p>
+        <!-- post-launch variant (keep — one <a> swap):
+        <a href="https://play.google.com/store/apps/details?id=…"><img src="assets/google-play-badge.png" alt="Get it on Google Play" height="60"></a>
+        -->
+      </div>
+    </div>
+    <img class="hero__mascot" src="assets/mascot-idle.svg" alt="" width="220" height="220">
+  </section>
+
+  <!-- ═══ 2 · HOW IT WORKS ═══════════════════════════════ -->
+  <section class="how" aria-labelledby="how-title">
+    <h2 id="how-title">How it works</h2>
+    <div class="how__grid">
+      <article class="how__card">
+        <span class="how__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4.5" width="10" height="14" rx="2" transform="rotate(-8 9 11.5)" opacity="0.45"/><rect x="9.5" y="5.5" width="10" height="14" rx="2" transform="rotate(7 14.5 12.5)"/></svg>
+        </span>
+        <h3>Catch</h3>
+        <p>Photograph a street cat and your photo becomes a trading card — Common, Rare,
+          Epic or Legendary, each with its own frame.</p>
+      </article>
+      <article class="how__card">
+        <span class="how__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="5.4" cy="9.6" rx="2" ry="2.5" transform="rotate(-18 5.4 9.6)"/><ellipse cx="9.6" cy="6.2" rx="2.1" ry="2.7" transform="rotate(-8 9.6 6.2)"/><ellipse cx="14.4" cy="6.2" rx="2.1" ry="2.7" transform="rotate(8 14.4 6.2)"/><ellipse cx="18.6" cy="9.6" rx="2" ry="2.5" transform="rotate(18 18.6 9.6)"/><path d="M12 10.5C15.6 10.5 18.4 13.4 18.4 16.2C18.4 18.7 16.4 20.2 12 20.2C7.6 20.2 5.6 18.7 5.6 16.2C5.6 13.4 8.4 10.5 12 10.5Z"/></svg>
+        </span>
+        <h3>Know</h3>
+        <p>Every real cat gets a shared identity page the neighborhood maintains together:
+          welfare profile, ear-tip and TNR status, sighting updates.</p>
+      </article>
+      <article class="how__card">
+        <span class="how__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="2.4" height="18" rx="1.2"/><path d="M7.4 4.5H18.5L15.6 8.25L18.5 12H7.4Z"/></svg>
+        </span>
+        <h3>Help</h3>
+        <p>Volunteers recognize and care for the cats they see every day. A needs-attention
+          flag means someone should go check on that cat.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · THE MAP ════════════════════════════════════ -->
+  <section class="map-band" aria-labelledby="map-title">
+    <h2 id="map-title">Every pin is a real cat</h2>
+    <div id="map" class="map-teaser" role="region" aria-label="Map of street cats in a seeded neighborhood">
+      <noscript><p class="map-teaser__noscript">The map needs JavaScript — but the cats are
+        real either way.</p></noscript>
+    </div>
+    <p class="map-band__caption">A live neighborhood — the full map comes with the app.</p>
+  </section>
+
+  <!-- ═══ 4 · THE CARDS ══════════════════════════════════ -->
+  <section class="cards-band" aria-labelledby="cards-title">
+    <h2 id="cards-title">Cards a cat earns by being itself</h2>
+    <p class="cards-band__lede">Rarity comes from how often a cat is seen — not from where
+      it lives. Four frames, one street cat society.</p>
+    <div class="cards-band__grid">
+      <article class="cat-card cat-card--common">
+        <div class="cat-card__frame">
+          <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+          <span class="cat-card__badge">—&nbsp;<span class="cat-card__badge-label">Common</span></span>
+          <div class="cat-card__meta"><h3>Cue</h3><p><span>The harbor steps</span><span>02 Jul</span></p></div>
+        </div>
+      </article>
+      <article class="cat-card cat-card--rare">
+        <div class="cat-card__frame">
+          <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+          <span class="cat-card__badge">◆&nbsp;<span class="cat-card__badge-label">Rare</span></span>
+          <div class="cat-card__meta"><h3>Cia</h3><p><span>The market</span><span>30 Jun</span></p></div>
+        </div>
+      </article>
+      <article class="cat-card cat-card--epic">
+        <div class="cat-card__wrap">
+          <div class="cat-card__frame">
+            <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+            <span class="cat-card__badge">✦&nbsp;<span class="cat-card__badge-label">Epic</span></span>
+            <div class="cat-card__meta"><h3>Nina</h3><p><span>The old wall</span><span>28 Jun</span></p></div>
+          </div>
+        </div>
+      </article>
+      <article class="cat-card cat-card--legendary">
+        <div class="cat-card__wrap">
+          <div class="cat-card__frame">
+            <div class="cat-card__photo"><img src="assets/mascot-idle.svg" alt="" class="cat-card__sampleart"></div>
+            <span class="cat-card__badge">★&nbsp;<span class="cat-card__badge-label">Legendary</span></span>
+            <div class="cat-card__meta"><h3>Ola</h3><p><span>Everywhere</span><span>today</span></p></div>
+          </div>
+        </div>
+        <span class="cat-card__finial">★</span><span class="cat-card__finial">★</span><span class="cat-card__finial">★</span><span class="cat-card__finial">★</span>
+      </article>
+    </div>
+    <p class="cards-band__note">Sample cards — the real ones are made of real photos of real cats.</p>
+  </section>
+
+  <!-- ═══ 5 · PRIVACY STRIP ══════════════════════════════ -->
+  <section class="privacy" aria-labelledby="privacy-title">
+    <h2 id="privacy-title" class="privacy__headline">No ads · no tracking · no accounts sold ·
+      cat locations blurred to ~110 m</h2>
+    <p class="privacy__sub">The register exists for the cats, not for your data.</p>
+  </section>
+
+</main>
+
+<!-- ═══ 6 · FOOTER ═══════════════════════════════════════ -->
+<footer class="site-footer">
+  <p class="site-footer__mission">MiyavMap is a shared register of street cats, kept alive
+    by the people who play it.</p>
+  <a class="btn-filled" href="mailto:albybit31@gmail.com?subject=MiyavMap%20early%20access">Get early access</a>
+  <nav class="site-footer__links" aria-label="Legal and contact">
+    <!-- TODO: confirm legal-site base URL (app repo rename catchcat → miyavmap pending;
+         currently these pages publish under /catchcat/) -->
+    <a href="https://albybit.github.io/miyavmap/privacy-policy.html">Privacy policy</a>
+    <a href="https://albybit.github.io/miyavmap/terms.html">Terms</a>
+    <a href="mailto:albybit31@gmail.com?subject=MiyavMap%20web%20—%20contact">Contact</a>
+    <a href="mailto:albybit31@gmail.com?subject=MiyavMap%20web%20—%20report%20content">Report content</a>
+  </nav>
+  <p class="site-footer__small">No ads · no tracking · locations blurred.
+    Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.</p>
+</footer>
+</body>
+</html>

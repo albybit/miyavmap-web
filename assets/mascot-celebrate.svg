@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140">
+  <polygon points="18,26 21.5,33 18,40 14.5,33" fill="#FFC24D"></polygon>
+  <polygon points="122,20 125.5,27 122,34 118.5,27" fill="#FFC24D"></polygon>
+  <polygon points="126,58 129,64 126,70 123,64" fill="#FFC24D"></polygon>
+  <polygon points="12,62 14.5,67 12,72 9.5,67" fill="#FFC24D"></polygon>
+  <path d="M96 118C118 118 124 98 108 92" fill="none" stroke="#3A2418" stroke-width="15" stroke-linecap="round"></path>
+  <path d="M96 118C118 118 124 98 108 92" fill="none" stroke="#F0912C" stroke-width="9" stroke-linecap="round"></path>
+  <ellipse cx="70" cy="98" rx="30" ry="26" fill="#F0912C" stroke="#3A2418" stroke-width="4"></ellipse>
+  <ellipse cx="70" cy="105" rx="15" ry="12" fill="#FFE8CF"></ellipse>
+  <ellipse cx="40" cy="76" rx="7.5" ry="15" fill="#F0912C" stroke="#3A2418" stroke-width="3.5" transform="rotate(28 40 76)"></ellipse>
+  <ellipse cx="100" cy="76" rx="7.5" ry="15" fill="#F0912C" stroke="#3A2418" stroke-width="3.5" transform="rotate(-28 100 76)"></ellipse>
+  <g transform="translate(38 12)">
+    <path fill="#F0912C" stroke="#3A2418" stroke-width="4" stroke-linejoin="round" d="M32 54C18 54 9 44 9 31C9 25 10.2 19.6 12.4 15.2C12.9 14.2 14.2 13.9 15.1 14.6L24 21.2C26.5 20.2 29.2 19.6 32 19.6C34.8 19.6 37.5 20.2 40 21.2L48.9 14.6C49.8 13.9 51.1 14.2 51.6 15.2C53.8 19.6 55 25 55 31C55 44 46 54 32 54Z"></path>
+    <path d="M26 24v6M32 22.5v7M38 24v6" fill="none" stroke="#3A2418" stroke-width="3" stroke-linecap="round"></path>
+    <ellipse cx="32" cy="43" rx="13" ry="8.5" fill="#FFE8CF"></ellipse>
+    <path d="M18.5 35q3.5 -4.5 7 0M38.5 35q3.5 -4.5 7 0" fill="none" stroke="#3A2418" stroke-width="3" stroke-linecap="round"></path>
+    <path d="M26 42q6 6.5 12 0" fill="none" stroke="#3A2418" stroke-width="3" stroke-linecap="round"></path>
+  </g>
+</svg>

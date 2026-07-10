@@ -1,0 +1,107 @@
+/* MiyavMap Web — design tokens
+   Transcribed from the app's Visual System v1 token sheet.
+   DO NOT tweak values ad hoc — report divergences upstream to the app repo. */
+
+:root { /* light (default) */
+  --primary:#8F4A00;            --on-primary:#FFFFFF;
+  --primary-container:#FFDCBE;  --on-primary-container:#2E1500;
+  --secondary:#3F6654;          --on-secondary:#FFFFFF;
+  --secondary-container:#C1ECD3; --on-secondary-container:#002114;
+  --tertiary:#8E4A5E;           --on-tertiary:#FFFFFF;
+  --tertiary-container:#FFD9E1; --on-tertiary-container:#3A0723;
+  --background:#FFF8F3;         --surface:#FFF8F3;             --on-surface:#211A13;
+  --surface-variant:#F2DFD0;    --on-surface-variant:#51443A;
+  --surface-container:#FBEDE0;
+  --outline:#837468;            --outline-variant:#D6C4B6;
+  --error:#BA1A1A;              --on-error:#FFFFFF;
+  --error-container:#FFDAD6;    --on-error-container:#410002;
+
+  /* rarity — theme-aware (page surfaces) */
+  --rarity-common:#667077;      --rarity-common-container:#E1E6EA;
+  --rarity-rare:#1565C0;        --rarity-rare-container:#D7E3FF;
+  --rarity-epic:#6A1B9A;        --rarity-epic-container:#F1DAFF;
+  --rarity-legendary-text:#A65E00;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --primary:#FFB874;            --on-primary:#4C2700;
+  --primary-container:#6D3900;  --on-primary-container:#FFDCBE;
+  --secondary:#A6D1BD;          --on-secondary:#11372A;
+  --secondary-container:#27503F; --on-secondary-container:#C1ECD3;
+  --tertiary:#FFB0C8;           --on-tertiary:#561D33;
+  --tertiary-container:#713348; --on-tertiary-container:#FFD9E1;
+  --background:#17120D;         --surface:#17120D;             --on-surface:#ECE0D5;
+  --surface-variant:#51443A;    --on-surface-variant:#D6C4B6;
+  --surface-container:#221C15;
+  --outline:#9E8D80;            --outline-variant:#51443A;
+  --error:#FFB4AB;              --on-error:#690005;
+  --error-container:#93000A;    --on-error-container:#FFDAD6;
+
+  --rarity-common:#A9B4BD;      --rarity-common-container:#3A4148;
+  --rarity-rare:#7FB2F9;        --rarity-rare-container:#123C66;
+  --rarity-epic:#CE93F8;        --rarity-epic-container:#4A1272;
+  --rarity-legendary-text:#FFC155;
+
+  color-scheme: dark;
+}
+
+/* System preference as default when no manual toggle has stamped data-theme.
+   Duplicate of the dark block above — keep in sync. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary:#FFB874;            --on-primary:#4C2700;
+    --primary-container:#6D3900;  --on-primary-container:#FFDCBE;
+    --secondary:#A6D1BD;          --on-secondary:#11372A;
+    --secondary-container:#27503F; --on-secondary-container:#C1ECD3;
+    --tertiary:#FFB0C8;           --on-tertiary:#561D33;
+    --tertiary-container:#713348; --on-tertiary-container:#FFD9E1;
+    --background:#17120D;         --surface:#17120D;             --on-surface:#ECE0D5;
+    --surface-variant:#51443A;    --on-surface-variant:#D6C4B6;
+    --surface-container:#221C15;
+    --outline:#9E8D80;            --outline-variant:#51443A;
+    --error:#FFB4AB;              --on-error:#690005;
+    --error-container:#93000A;    --on-error-container:#FFDAD6;
+    --rarity-common:#A9B4BD;      --rarity-common-container:#3A4148;
+    --rarity-rare:#7FB2F9;        --rarity-rare-container:#123C66;
+    --rarity-epic:#CE93F8;        --rarity-epic-container:#4A1272;
+    --rarity-legendary-text:#FFC155;
+    color-scheme: dark;
+  }
+}
+
+:root { /* theme-independent — the card face is dark in BOTH themes */
+  --card-body:#1E1710;          --card-on-body:#F7EBDD;
+  --card-on-body-meta:rgb(247 235 221 / .62);
+  --card-back:#241A12;          --card-back-border:rgb(240 145 44 / .35);
+  --card-nophoto:#2A211A;
+  --legendary-fill:#FF8F00;     /* NEVER as text */
+  --on-gold:#2E1500;
+  --legendary-gradient:linear-gradient(135deg,#FFD54F 0%,#FF8F00 45%,#C46A00 100%);
+  --legendary-inner:rgb(255 224 140 / .60);
+  --shimmer:rgb(255 236 190 / .20);
+
+  /* inside-card rarity accents — ALWAYS the dark set, regardless of page theme
+     (web equivalent of Rarity.colors(dark = true)) */
+  --rarity-common-oncard:#A9B4BD;    --rarity-common-container-oncard:#3A4148;
+  --rarity-rare-oncard:#7FB2F9;      --rarity-rare-container-oncard:#123C66;
+  --rarity-epic-oncard:#CE93F8;      --rarity-epic-container-oncard:#4A1272;
+  --rarity-legendary-text-oncard:#FFC155;
+
+  /* type — Fredoka never below 13px; #FF8F00 never as text */
+  --font-display:Fredoka, system-ui, sans-serif;
+  --font-body:"Nunito Sans", system-ui, sans-serif;
+  --type-display:600 34px/40px var(--font-display);
+  --type-title:600 25px/32px var(--font-display);
+  --type-card-name:500 18px/24px var(--font-display);
+  --type-body:400 14px/20px var(--font-body);
+  --type-label:700 12px/16px var(--font-body);
+  --type-badge:800 10px/12px var(--font-body); /* + letter-spacing:1px; uppercase */
+
+  /* shape + elevation */
+  --radius-card:16px;           --radius-card-legendary:18px;
+  --radius-sheet:24px;          --radius-pill:999px;
+  --shadow-float:0 2px 10px rgb(0 0 0 / .30);
+  --shadow-card-hover:0 6px 18px rgb(0 0 0 / .18);
+}

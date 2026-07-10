@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MiyavMap Web — component preview</title>
+<link rel="icon" href="assets/app-icon.svg" type="image/svg+xml">
+<!-- Preview only: production self-hosts subset woff2 (spec §2). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<style>
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+  section { margin-top: 44px; }
+  section > h2 { margin-bottom: 18px; }
+  .row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+  .compact-row { display: flex; gap: 12px; }
+  .compact-row .cat-card { width: 120px; }
+  .note { font: var(--type-label); color: var(--on-surface-variant); margin-top: 10px; }
+  header.demo { display: flex; align-items: center; justify-content: space-between;
+    height: 56px; padding: 0 24px; background: var(--surface-container); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .swatch { border-radius: 10px; padding: 10px 12px; font: var(--type-label); }
+</style>
+</head>
+<body>
+<header class="demo">
+  <a class="wordmark" href="#">
+    <img src="assets/logo-mark.svg" alt="">
+    <b>Miyav<span>Map</span></b>
+  </a>
+  <div class="row">
+    <span class="tagline">Street cat society</span>
+    <button class="float-circle" id="themeToggle" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+<main>
+  <h1>Component preview</h1>
+  <p class="note">Reference render of tokens.css + components.css. Toggle the theme (top right) — cards stay dark by design.</p>
+
+  <section>
+    <h2>Trading cards — the four frames</h2>
+    <div class="card-grid">
+      <article class="cat-card cat-card--common">
+        <div class="cat-card__frame">
+          <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+          <span class="cat-card__badge">—&nbsp;<span class="cat-card__badge-label">Common</span></span>
+          <div class="cat-card__meta"><h3>Cue</h3><p><span>Marina</span><span>02 Jul</span></p></div>
+        </div>
+      </article>
+      <article class="cat-card cat-card--rare">
+        <div class="cat-card__frame">
+          <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+          <span class="cat-card__badge">◆&nbsp;<span class="cat-card__badge-label">Rare</span></span>
+          <div class="cat-card__meta"><h3>Cia</h3><p><span>Marina</span><span>30 Jun</span></p></div>
+        </div>
+      </article>
+      <article class="cat-card cat-card--epic">
+        <div class="cat-card__wrap">
+          <div class="cat-card__frame">
+            <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+            <span class="cat-card__badge">✦&nbsp;<span class="cat-card__badge-label">Epic</span></span>
+            <div class="cat-card__meta"><h3>Nina</h3><p><span>Marina</span><span>28 Jun</span></p></div>
+          </div>
+        </div>
+      </article>
+      <article class="cat-card cat-card--legendary">
+        <div class="cat-card__wrap">
+          <div class="cat-card__frame">
+            <div class="cat-card__photo"><img src="assets/mascot-idle.svg" alt="" style="object-fit:contain;background:var(--card-nophoto)"></div>
+            <span class="cat-card__badge">★&nbsp;<span class="cat-card__badge-label">Legendary</span></span>
+            <div class="cat-card__meta"><h3>Ola</h3><p><span>Marina</span><span>today</span></p></div>
+          </div>
+        </div>
+        <span class="cat-card__finial">★</span><span class="cat-card__finial">★</span><span class="cat-card__finial">★</span><span class="cat-card__finial">★</span>
+      </article>
+    </div>
+    <p class="note">Photos here use placeholder art — drop real photo URLs into .cat-card__photo img.</p>
+  </section>
+
+  <section>
+    <h2>Compact (&lt; 140 px) + loading skeleton</h2>
+    <div class="compact-row">
+      <article class="cat-card cat-card--legendary">
+        <div class="cat-card__wrap">
+          <div class="cat-card__frame">
+            <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+            <span class="cat-card__badge">★</span>
+            <div class="cat-card__meta"><h3>Ola</h3><p><span>Marina</span></p></div>
+          </div>
+        </div>
+        <span class="cat-card__finial">★</span><span class="cat-card__finial">★</span><span class="cat-card__finial">★</span><span class="cat-card__finial">★</span>
+      </article>
+      <article class="cat-card cat-card--loading" style="width:160px">
+        <div class="cat-card__frame">
+          <img class="cat-card__backlogo" src="assets/logo-mark.svg" alt="">
+          <div class="cat-card__backname">Miyav<span>Map</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Map pins</h2>
+    <div class="row">
+      <div class="pin-photo pin-photo--legendary" style="position:relative">
+        <div class="pin-photo__ring"><img src="assets/icon-paw.svg" alt="" style="padding:8px;box-sizing:border-box;background:var(--card-nophoto)"></div>
+        <span class="pin-badge pin-badge--legendary">×4</span>
+      </div>
+      <img class="pin-classic" src="assets/pin-common.svg" alt="Common pin">
+      <img class="pin-classic" src="assets/pin-rare.svg" alt="Rare pin">
+      <img class="pin-classic" src="assets/pin-epic.svg" alt="Epic pin">
+      <img class="pin-classic is-selected" src="assets/pin-legendary.svg" alt="Legendary pin, selected">
+      <div class="pin-cluster">12</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Floating UI, chips, buttons</h2>
+    <div class="row">
+      <button class="float-pill">Zoom in to see cats</button>
+      <button class="float-circle" aria-label="Locate">◎</button>
+      <button class="chip">Tabby</button>
+      <button class="chip" aria-pressed="true">Fixed ✓</button>
+      <button class="btn-filled">Follow</button>
+      <button class="btn-outlined">Share</button>
+      <span class="chip-steward">You steward this cat</span>
+    </div>
+    <div class="banner-attention" style="margin-top:16px">Needs attention — reported limping near the harbor steps.</div>
+  </section>
+
+  <section>
+    <h2>Theme-aware rarity accents (page surfaces)</h2>
+    <div class="swatches">
+      <div class="swatch" style="background:var(--rarity-common-container);color:var(--on-surface)">common container</div>
+      <div class="swatch" style="background:var(--rarity-rare-container);color:var(--on-surface)">rare container</div>
+      <div class="swatch" style="background:var(--rarity-epic-container);color:var(--on-surface)">epic container</div>
+      <div class="swatch" style="background:var(--surface-variant);color:var(--rarity-legendary-text)">legendary text</div>
+    </div>
+  </section>
+</main>
+<script>
+  const btn = document.getElementById('themeToggle');
+  btn.addEventListener('click', () => {
+    const root = document.documentElement;
+    const dark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.hasAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+</script>
+</body>
+</html>
