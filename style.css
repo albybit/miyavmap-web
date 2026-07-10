@@ -109,6 +109,24 @@ main > section > h2 { text-align: center; }
 }
 .map-teaser .leaflet-tooltip-top:before { border-top-color: var(--outline-variant); }
 
+/* pin click → the cat's framed card in a chrome-less popup */
+.card-popup .leaflet-popup-content-wrapper {
+  background: transparent; box-shadow: none; border-radius: 0; padding: 0;
+}
+.card-popup .leaflet-popup-content {
+  margin: 0; padding: 8px; /* legendary finials overhang the card box */
+  line-height: normal;
+}
+.card-popup .cat-card { filter: drop-shadow(var(--shadow-float)); }
+.card-popup .leaflet-popup-tip-container { display: none; }
+.card-popup .leaflet-popup-close-button {
+  top: -6px; right: -6px; z-index: 6;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--surface-container); color: var(--on-surface);
+  font: 700 16px/28px var(--font-body); text-align: center;
+  box-shadow: var(--shadow-float);
+}
+
 /* ── cards band ───────────────────────────────────────── */
 .cards-band__lede {
   text-align: center; max-width: 520px; margin: 12px auto 0;

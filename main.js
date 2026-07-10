@@ -21,6 +21,25 @@ document.getElementById("themeToggle").addEventListener("click", () => {
 // so tiles cost nothing for visitors who never scroll to the map.
 const mapEl = document.getElementById("map");
 const TIER_LABEL = { common: "Common", rare: "Rare", epic: "Epic", legendary: "Legendary" };
+const TIER_GLYPH = { common: "—", rare: "◆", epic: "✦", legendary: "★" };
+
+// The pin's cat as a framed trading card (DESIGN_SPEC §5) — no-photo state,
+// since the v0 snapshot deliberately ships no photos (LANDING_SPEC §4).
+function cardHtml({ name, rarity }) {
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const frame = `
+    <div class="cat-card__frame">
+      <div class="cat-card__nophoto"><img src="assets/icon-paw.svg" alt=""></div>
+      <span class="cat-card__badge">${TIER_GLYPH[rarity]}&nbsp;<span class="cat-card__badge-label">${TIER_LABEL[rarity]}</span></span>
+      <div class="cat-card__meta"><h3>${esc(name)}</h3><p><span>Full profile in the app</span></p></div>
+    </div>`;
+  const needsWrap = rarity === "epic" || rarity === "legendary";
+  const finials = rarity === "legendary"
+    ? '<span class="cat-card__finial">★</span>'.repeat(4) : "";
+  return `<article class="cat-card cat-card--${rarity}">
+    ${needsWrap ? `<div class="cat-card__wrap">${frame}</div>` : frame}${finials}
+  </article>`;
+}
 
 new IntersectionObserver((entries, obs) => {
   if (!entries.some(e => e.isIntersecting)) return;
@@ -62,6 +81,12 @@ async function initMap() {
       }),
       alt: `${p.name}, ${TIER_LABEL[p.rarity]} street cat`
     }).addTo(map)
-      .bindTooltip(`${p.name} — ${TIER_LABEL[p.rarity]}`, { direction: "top" });
+      .bindTooltip(`${p.name} — ${TIER_LABEL[p.rarity]}`, { direction: "top" })
+      .bindPopup(cardHtml(p), {
+        className: "card-popup",
+        minWidth: 172, maxWidth: 172,
+        offset: [0, -30],
+        autoPanPadding: [24, 24]
+      });
   }
 }
